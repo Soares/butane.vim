@@ -1,9 +1,9 @@
 " butane.vim: Light your buffers up.
 "
-" Author:		Vim Tip #165 <http://vim.wikia.com/wiki/VimTip165>
-" Maintainer:	Nate Soares <http://so8r.es>
-" Version:		1.0
-" License:		The same as vim itself. (See |license|)
+" Author:       Vim Tip #165 <http://vim.wikia.com/wiki/VimTip165>
+" Maintainer:   Nate Soares <http://so8r.es>
+" Version:      1.0
+" License:      The same as vim itself. (See |license|)
 " GetLatestVimScripts: 4245 1 :AutoInstall: butane.zip
 
 if exists("g:loaded_butane") || &cp || v:version < 700
@@ -56,5 +56,4 @@ function! s:Bclose(bang, buffer)
 	execute 'bdelete'.a:bang.' '.btarget
 	execute wcurrent.'wincmd w'
 endfunction
-command! -bang -complete=buffer -nargs=?
-	\ Bclose call s:Bclose('<bang>', '<args>')
+com! -bang -complete=buffer -nargs=? Bclose call s:Bclose('<bang>', '<args>')
