@@ -6,7 +6,7 @@
 " License:      The same as vim itself. (See |license|)
 " GetLatestVimScripts: 4245 1 :AutoInstall: butane.zip
 
-if exists("g:loaded_butane") || &cp || v:version < 700
+if exists('g:loaded_butane') || &cp || v:version < 700
 	finish
 endif
 let g:loaded_butane = 1
