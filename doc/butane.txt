@@ -1,23 +1,23 @@
-*butane.txt*  Buffer Utilities
+*butane.txt*  Buffer Utilities				*butane*
 
 Author:  Nate Soares <http://so8r.es/>
 License: Same terms as Vim itself (see |license|)
 
 =============================================================================
-INTRODUCTION					*butane*
+INTRODUCTION						*butane-intro*
 
 Vim buffer utilities. Light your buffers up.
 
 
 =============================================================================
-COMMANDS					*butane-commands*
+COMMANDS						*butane-commands*
 
-						*:Bclose*
+							*:Bclose*
 :Bclose[!]                |:bdelete| without changing the window layout.
 
 
 =============================================================================
-ABOUT						*butane-about*
+ABOUT							*butane-about*
 
 Grab the latest version or report a bug on GitHub:
 

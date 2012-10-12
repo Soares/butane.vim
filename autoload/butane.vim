@@ -4,7 +4,7 @@ endif
 let g:butane#autoloaded = 1
 
 " Delete a buffer but retain the window positions.
-function! butane#Bclose(bang, buffer)
+function! butane#bclose(bang, buffer)
 	if empty(a:buffer)
 		let btarget = bufnr('%')
 	elseif a:buffer =~ '^\d\+$'
