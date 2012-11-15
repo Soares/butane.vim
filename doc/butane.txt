@@ -1,7 +1,16 @@
 *butane.txt*  Buffer Utilities				*butane*
 
 Author:  Nate Soares <http://so8r.es/>
+	 from Vim Tip #165 <http://vim.wikia.com/wiki/VimTip165>
 License: Same terms as Vim itself (see |license|)
+
+==============================================================================
+CONTENTS						*butane-contents*
+	1. Introduction...................................|butane-intro|
+	2. Configuration..................................|butane-config|
+	3. Commands.......................................|butane-commands|
+	4. Mappings.......................................|butane-mappings|
+	6. About..........................................|butane-about|
 
 =============================================================================
 INTRODUCTION						*butane-intro*
@@ -10,10 +19,40 @@ Vim buffer utilities. Light your buffers up.
 
 
 =============================================================================
+CONFIGURATION						*butane-config*
+
+						*g:butane_enable_mappings*
+Whether or not to enable the default mappings. See |butane-mappings|.
+This may be set to a letter. If it is, all mappings will be bound under
+<leader><letter>. If set to 1, the letter 'b' will be used.
+Default: 0
+
+
+=============================================================================
 COMMANDS						*butane-commands*
 
-							*:Bclose*
-:Bclose[!]                |:bdelete| without changing the window layout.
+:Bclose[!]						*:Bclose*
+	|:bdelete| without changing the window layout.
+
+	[!] works like the [!] in |:bd|.
+
+=============================================================================
+MAPPINGS						*butane-mappings*
+
+Butane does not change your mappings by default. We recommend the following:
+>
+    noremap <leader>bd :Bclose<CR>   " Close the buffer.
+    noremap <leader>bl :ls<CR>       " List buffers.
+    noremap <leader>bn :bn<CR>       " Next buffer.
+    noremap <leader>bp :bp<CR>       " Previous buffer.
+    noremap <leader>bt :b#<CR>       " Toggle to most recently used buffer.
+    noremap <leader>bx :Bclose!<CR>  " Close the buffer & discard changes.
+<
+NOTE: Do not include comments in mappings.
+
+If you really like these suggestions you can enable them with
+|g:butane_enable_mappings|.  You're encouraged to customize your mappings to
+meet your own needs.
 
 
 =============================================================================

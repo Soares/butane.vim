@@ -1,51 +1,46 @@
-if exists('g:butane#autoloaded') || &cp || v:version < 700
-	finish
-endif
-let g:butane#autoloaded = 1
-
 " Delete a buffer but retain the window positions.
 function! butane#bclose(bang, buffer)
 	if empty(a:buffer)
-		let btarget = bufnr('%')
+		let l:target = bufnr('%')
 	elseif a:buffer =~ '^\d\+$'
-		let btarget = bufnr(str2nr(a:buffer))
+		let l:target = bufnr(str2nr(a:buffer))
 	else
-		let btarget = bufnr(a:buffer)
+		let l:target = bufnr(a:buffer)
 	endif
-	if btarget < 0
+	if l:target < 0
 		echoerr 'No matching buffer for '.a:buffer
 		return
 	endif
-	if empty(a:bang) && getbufvar(btarget, '&modified')
+	if empty(a:bang) && getbufvar(l:target, '&modified')
 		echoerr 'No write since last change. Use :Bclose!'
 		return
 	endif
 	" Numbers of windows that view target buffer which we will delete.
-	let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
+	let l:wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == l:target')
 	let wcurrent = winnr()
-	for w in wnums
-		execute w.'wincmd w'
-		let prevbuf = bufnr('#')
-		if prevbuf > 0 && buflisted(prevbuf) && prevbuf != w
+	for l:w in l:wnums
+		execute l:w.'wincmd w'
+		let l:prevbuf = bufnr('#')
+		if l:prevbuf > 0 && buflisted(l:prevbuf) && l:prevbuf != w
 			buffer #
 		else
 			bprevious
 		endif
-		if btarget == bufnr('%')
+		if l:target == bufnr('%')
 			" Numbers of listed buffers which are not the target to be deleted.
-			let blisted = filter(range(1, bufnr('$')),
-				\ 'buflisted(v:val) && v:val != btarget')
+			let l:listed = filter(range(1, bufnr('$')),
+				\ 'buflisted(v:val) && v:val != l:target')
 			" Listed, not target, and not displayed.
-			let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
+			let l:hidden = filter(copy(l:listed), 'bufwinnr(v:val) < 0')
 			" Take the first buffer, if any (could be more intelligent).
-			let bjump = (bhidden + blisted + [-1])[0]
-			if bjump > 0
-				execute 'buffer '.bjump
+			let l:jump = (l:hidden + l:listed + [0])[0]
+			if l:jump > 0
+				execute 'buffer '.l:jump
 			else
 				execute 'enew'.a:bang
 			endif
 		endif
 	endfor
-	execute 'bdelete'.a:bang.' '.btarget
+	execute 'bdelete'.a:bang.' '.l:target
 	execute wcurrent.'wincmd w'
 endfunction

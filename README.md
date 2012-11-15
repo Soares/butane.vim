@@ -10,11 +10,11 @@ If you want to give your buffers a bit of an extra spark I recommend the
 following maps in your .vimrc or equivalent:
 
     noremap <leader>bd :Bclose<CR>      " Close the buffer.
-    noremap <leader>bD :Bclose!<CR>     " Close the buffer & discard changes.
+    noremap <leader>bl :ls<CR>          " List buffers.
     noremap <leader>bn :bn<CR>          " Next buffer.
     noremap <leader>bp :bp<CR>          " Previous buffer.
-    noremap <leader>bl :ls<CR>          " List buffers.
     noremap <leader>bt :b#<CR>          " Toggle to most recently used buffer.
+    noremap <leader>bx :Bclose!<CR>     " Close the buffer & discard changes.
 
 Most of these commands are simple, but with a good leader key they are
 much easier to hit than their built-in counterparts.
