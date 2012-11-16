@@ -11,8 +11,8 @@ endif
 let g:loaded_butane = 1
 
 
-if !exists('g:butane_enable_mappings')
-	let g:butane_enable_mappings = 0
+if !exists('g:butane_automap')
+	let g:butane_automap = 0
 endif
 
 
@@ -20,17 +20,15 @@ command! -bang -complete=buffer -nargs=? Bclose
 		\ call butane#bclose('<bang>', '<args>')
 
 
-if !empty(g:butane_enable_mappings)
-	if type(g:butane_enable_mappings) == type('')
-		let s:mapchar = g:butane_enable_mappings
-	else
-		let s:mapchar = 'b'
+if !empty(g:butane_automap)
+	if type(g:butane_automap) == type(1)
+		let g:butane_automap = 'b'
 	endif
 
-	exe 'noremap <leader>' . s:mapchar . 'd :Bclose<CR>'
-	exe 'noremap <leader>' . s:mapchar . 'l :ls<CR>'
-	exe 'noremap <leader>' . s:mapchar . 'n :bn<CR>'
-	exe 'noremap <leader>' . s:mapchar . 'p :bp<CR>'
-	exe 'noremap <leader>' . s:mapchar . 't :b#<CR>'
-	exe 'noremap <leader>' . s:mapchar . 'x :Bclose!<CR>'
+	exe 'noremap <leader>' . g:butane_automap . 'd :Bclose<CR>'
+	exe 'noremap <leader>' . g:butane_automap . 'l :ls<CR>'
+	exe 'noremap <leader>' . g:butane_automap . 'n :bn<CR>'
+	exe 'noremap <leader>' . g:butane_automap . 'p :bp<CR>'
+	exe 'noremap <leader>' . g:butane_automap . 't :b#<CR>'
+	exe 'noremap <leader>' . g:butane_automap . 'x :Bclose!<CR>'
 endif

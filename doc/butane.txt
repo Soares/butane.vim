@@ -21,10 +21,10 @@ Vim buffer utilities. Light your buffers up.
 =============================================================================
 CONFIGURATION						*butane-config*
 
-						*g:butane_enable_mappings*
-Whether or not to enable the default mappings. See |butane-mappings|.
-This may be set to a letter. If it is, all mappings will be bound under
-<leader><letter>. If set to 1, the letter 'b' will be used.
+						*g:butane_automap*
+Enables the default mappings when non-empty. See |butane-mappings|.
+If set to a letter, all mappings will be bound under <leader><letter>.
+If set to 1, all mappings will be bound under <leader>b.
 Default: 0
 
 
@@ -51,7 +51,7 @@ Butane does not change your mappings by default. We recommend the following:
 NOTE: Do not include comments in mappings.
 
 If you really like these suggestions you can enable them with
-|g:butane_enable_mappings|.  You're encouraged to customize your mappings to
+|g:butane_automap|.  You're encouraged to customize your mappings to
 meet your own needs.
 
 
