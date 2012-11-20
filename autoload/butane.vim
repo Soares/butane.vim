@@ -44,3 +44,14 @@ function! butane#bclose(bang, buffer)
 	execute 'bdelete'.a:bang.' '.l:target
 	execute wcurrent.'wincmd w'
 endfunction
+
+
+" Delete all open buffers.
+function! butane#reset(bang)
+	exe 'bufdo bdelete'.a:bang
+	" If there were multiple buffers, the last is still loaded.
+	exe 'bdelete'.a:bang
+	" Clear extraneous echos & messages
+	echo ''
+	redraw
+endfunction

@@ -34,7 +34,13 @@ COMMANDS						*butane-commands*
 :Bclose[!]						*:Bclose*
 	|:bdelete| without changing the window layout.
 
-	[!] works like the [!] in |:bd|.
+	[!] works like the [!] in |:bdelete|.
+
+:Breset[!]						*:Breset*
+	Runs |:bdelete| on all buffers. Useful to reset vim to a clean state
+	if you want to switch projects without reloading vim.
+
+	[!] is passed to each |:bdelete| command.
 
 =============================================================================
 MAPPINGS						*butane-mappings*

@@ -16,8 +16,9 @@ if !exists('g:butane_automap')
 endif
 
 
-command! -bang -complete=buffer -nargs=? Bclose
-		\ call butane#bclose('<bang>', '<args>')
+command -bang Breset call butane#reset('<bang>')
+command -bang -complete=buffer -nargs=? Bclose
+	\ call butane#bclose('<bang>', '<args>')
 
 
 if !empty(g:butane_automap)
