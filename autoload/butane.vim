@@ -21,7 +21,7 @@ function! butane#bclose(bang, buffer)
 
 	" Numbers of windows that view target buffer which we will delete.
 	let l:wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == l:target')
-	let wcurrent = winnr()
+	let l:wcurrent = winnr()
 	for l:w in l:wnums
 		execute l:w.'wincmd w'
 		let l:prevbuf = bufnr('#')
@@ -39,7 +39,7 @@ function! butane#bclose(bang, buffer)
 			" Take the first buffer, if any (could be more intelligent).
 			let l:jump = (l:hidden + l:listed + [0])[0]
 			if l:jump > 0
-				execute 'buffer '.l:jump
+				execute 'buffer' l:jump
 			else
 				execute 'enew'.a:bang
 			endif
@@ -49,10 +49,10 @@ function! butane#bclose(bang, buffer)
 	if l:bufhidden !~ 'delete\|wipe'
 		" If &bufhidden was set to 'delete' or 'wipe' our switching away in the
 		" loop above already led to the buffer's deletion.
-		execute 'bdelete'.a:bang.' '.l:target
+		execute 'bdelete'.a:bang l:target
 	endif
 
-	execute wcurrent.'wincmd w'
+	execute l:wcurrent.'wincmd w'
 endfunction
 
 
