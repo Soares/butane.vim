@@ -11,10 +11,14 @@ function! butane#bclose(bang, buffer)
 		echoerr 'No matching buffer for '.a:buffer
 		return
 	endif
+
 	if empty(a:bang) && getbufvar(l:target, '&modified')
 		echoerr 'No write since last change. Use :Bclose!'
 		return
 	endif
+
+	let l:bufhidden = getbufvar(l:target, '&bufhidden')
+
 	" Numbers of windows that view target buffer which we will delete.
 	let l:wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == l:target')
 	let wcurrent = winnr()
@@ -41,7 +45,13 @@ function! butane#bclose(bang, buffer)
 			endif
 		endif
 	endfor
-	execute 'bdelete'.a:bang.' '.l:target
+
+	if l:bufhidden !~ 'delete\|wipe'
+		" If &bufhidden was set to 'delete' or 'wipe' our switching away in the
+		" loop above already led to the buffer's deletion.
+		execute 'bdelete'.a:bang.' '.l:target
+	endif
+
 	execute wcurrent.'wincmd w'
 endfunction
 
