@@ -1,5 +1,10 @@
+function! s:del()
+  return g:butane_wipeout ? 'bwipeout' : 'bdelete'
+endfunction
+
 " Delete a buffer but retain the window positions.
 function! butane#bclose(bang, buffer)
+  let l:del = s:del()
 	if empty(a:buffer)
 		let l:target = bufnr('%')
 	elseif a:buffer =~ '^\d\+$'
@@ -49,7 +54,7 @@ function! butane#bclose(bang, buffer)
 	if l:bufhidden !~ 'delete\|wipe'
 		" If &bufhidden was set to 'delete' or 'wipe' our switching away in the
 		" loop above already led to the buffer's deletion.
-		execute 'bdelete'.a:bang l:target
+		execute l:del.a:bang l:target
 	endif
 
 	execute l:wcurrent.'wincmd w'
@@ -57,10 +62,11 @@ endfunction
 
 
 " Delete all open buffers.
-function! butane#reset(bang)
-	exe 'bufdo bdelete'.a:bang
+function! butane#reset(del, bang)
+  let l:del = s:del()
+  execute 'bufdo' l:del.a:bang
 	" If there were multiple buffers, the last is still loaded.
-	exe 'bdelete'.a:bang
+  execute l:del.a:bang
 	" Clear extraneous echos & messages
 	echo ''
 	redraw
@@ -71,6 +77,7 @@ endfunction
 " Returns a list with two elements. The first is the number of buffers
 " affected, the second is the number of buffers where an error occured.
 function! butane#purge(bang)
+  let l:del = s:del()
   let l:tabs = []
   for i in range(tabpagenr('$'))
       call extend(l:tabs, tabpagebuflist(i + 1))
@@ -78,10 +85,13 @@ function! butane#purge(bang)
   let l:count = 0
   let l:errors = 0
   for l:i in range(1, bufnr('$'))
-    if bufexists(l:i) && buflisted(l:i) && index(l:tabs, l:i) == -1
+    if g:butane_wipeout == 0 && !buflisted(l:i)
+      continue
+    endif
+    if bufexists(l:i) && index(l:tabs, l:i) == -1
       let l:count += 1
       try
-        silent execute 'bdelete'.a:bang l:i
+        silent execute l:del.a:bang l:i
       catch /E\%(516\|89\):/
         let l:errors += 1
       endtry

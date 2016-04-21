@@ -4,17 +4,17 @@
 " Version:      1.0.1
 " License:      The same as vim itself. (See |license|)
 " GetLatestVimScripts: 4245 1 :AutoInstall: butane.zip
-"
-" TODO: Add support for bwipeout?
 
 if exists('g:loaded_butane') || &cp || v:version < 700
 	finish
 endif
 let g:loaded_butane = 1
 
-
 if !exists('g:butane_automap')
 	let g:butane_automap = 0
+endif
+if !exists('g:butane_wipeout')
+	let g:butane_wipeout = 0
 endif
 
 function! s:purge(bang)
