@@ -36,6 +36,12 @@ COMMANDS						*butane-commands*
 
 	[!] works like the [!] in |:bdelete|.
 
+:Bcleanup[!]						*:Bcleanup*
+	|:bdelete| all buffers that are not currently shown in some window of
+	some tab.
+
+	[!] works like the [!] in |:bdelete|.
+
 :Breset[!]						*:Breset*
 	Runs |:bdelete| on all buffers. Useful to reset vim to a clean state
 	if you want to switch projects without reloading vim.

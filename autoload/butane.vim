@@ -65,3 +65,21 @@ function! butane#reset(bang)
 	echo ''
 	redraw
 endfunction
+
+" Clear buffers that aren't open in some window.
+" Call with 'bdelete', 'bwipeout', or banged versions.
+" Returns the number of buffers affected.
+function! butane#clearhidden(bang)
+  let l:tabs = []
+  for i in range(tabpagenr('$'))
+      call extend(l:tabs, tabpagebuflist(i + 1))
+  endfor
+  let l:count = 0
+  for l:i in range(1, bufnr('$'))
+    if bufexists(l:i) && !getbufvar(l:i, '&mod') && index(l:tabs, l:i) == -1
+      silent execute 'bdelete'.a:bang l:i
+      let l:count += 1
+    endif
+  endfor
+  return l:count
+endfunction

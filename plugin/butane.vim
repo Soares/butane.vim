@@ -4,6 +4,8 @@
 " Version:      1.0.1
 " License:      The same as vim itself. (See |license|)
 " GetLatestVimScripts: 4245 1 :AutoInstall: butane.zip
+"
+" TODO: Add support for bwipeout?
 
 if exists('g:loaded_butane') || &cp || v:version < 700
 	finish
@@ -16,9 +18,10 @@ if !exists('g:butane_automap')
 endif
 
 
-command -bang Breset call butane#reset('<bang>')
 command -bang -complete=buffer -nargs=? Bclose
 	\ call butane#bclose('<bang>', '<args>')
+command -bang Breset call butane#reset('<bang>')
+command -bang Bcleanup call butane#cleanup('<bang>')
 
 
 if !empty(g:butane_automap)
