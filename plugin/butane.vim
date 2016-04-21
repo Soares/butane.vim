@@ -1,7 +1,7 @@
 " butane.vim: Light your buffers up.
 "
 " Maintainer:   Nate Soares <http://so8r.es>
-" Version:      1.0.1
+" Version:      1.1.0
 " License:      The same as vim itself. (See |license|)
 " GetLatestVimScripts: 4245 1 :AutoInstall: butane.zip
 
