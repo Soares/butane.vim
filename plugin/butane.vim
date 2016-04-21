@@ -5,10 +5,8 @@
 " License:      The same as vim itself. (See |license|)
 " GetLatestVimScripts: 4245 1 :AutoInstall: butane.zip
 
-if exists('g:loaded_butane') || &cp || v:version < 700
-	finish
-endif
 let g:loaded_butane = 1
+
 
 if !exists('g:butane_automap')
 	let g:butane_automap = 0
@@ -16,6 +14,7 @@ endif
 if !exists('g:butane_wipeout')
 	let g:butane_wipeout = 0
 endif
+
 
 function! s:purge(bang)
   let l:result = butane#purge(a:bang)
@@ -27,10 +26,10 @@ function! s:purge(bang)
 endfunction
 
 
-command -bang -complete=buffer -nargs=? Bclose
+command! -bang -complete=buffer -nargs=? Bclose
 	\ call butane#bclose('<bang>', '<args>')
-command -bang Breset call butane#reset('<bang>')
-command -bang Bpurge call s:purge('<bang>')
+command! -bang Breset call butane#reset('<bang>')
+command! -bang Bpurge call s:purge('<bang>')
 
 
 if !empty(g:butane_automap)
