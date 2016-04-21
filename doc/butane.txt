@@ -36,7 +36,7 @@ COMMANDS						*butane-commands*
 
 	[!] works like the [!] in |:bdelete|.
 
-:Bcleanup[!]						*:Bcleanup*
+:Bpurge[!]						*:Bpurge*
 	|:bdelete| all buffers that are not currently shown in some window of
 	some tab.
 

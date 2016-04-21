@@ -17,11 +17,20 @@ if !exists('g:butane_automap')
 	let g:butane_automap = 0
 endif
 
+function! s:purge(bang)
+  let l:result = butane#purge(a:bang)
+  let l:msg = l:result[0] . ' hidden buffer(s) purged'
+  if l:result[1] > 0
+    let l:msg .= ' ('.l:result[1].' survived)'
+  endif
+  echomsg l:msg
+endfunction
+
 
 command -bang -complete=buffer -nargs=? Bclose
 	\ call butane#bclose('<bang>', '<args>')
 command -bang Breset call butane#reset('<bang>')
-command -bang Bcleanup call butane#cleanup('<bang>')
+command -bang Bpurge call s:purge('<bang>')
 
 
 if !empty(g:butane_automap)

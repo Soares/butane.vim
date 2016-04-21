@@ -68,18 +68,24 @@ endfunction
 
 " Clear buffers that aren't open in some window.
 " Call with 'bdelete', 'bwipeout', or banged versions.
-" Returns the number of buffers affected.
-function! butane#clearhidden(bang)
+" Returns a list with two elements. The first is the number of buffers
+" affected, the second is the number of buffers where an error occured.
+function! butane#purge(bang)
   let l:tabs = []
   for i in range(tabpagenr('$'))
       call extend(l:tabs, tabpagebuflist(i + 1))
   endfor
   let l:count = 0
+  let l:errors = 0
   for l:i in range(1, bufnr('$'))
-    if bufexists(l:i) && !getbufvar(l:i, '&mod') && index(l:tabs, l:i) == -1
-      silent execute 'bdelete'.a:bang l:i
+    if bufexists(l:i) && buflisted(l:i) && index(l:tabs, l:i) == -1
       let l:count += 1
+      try
+        silent execute 'bdelete'.a:bang l:i
+      catch /E\%(516\|89\):/
+        let l:errors += 1
+      endtry
     endif
   endfor
-  return l:count
+  return [l:count - l:errors, l:errors]
 endfunction
